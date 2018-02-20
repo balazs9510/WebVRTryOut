@@ -10,7 +10,11 @@
   "license": "ISC",
   "devDependencies": {
     "lite-server": "^1.3.1",
-    "ts-vector-math": "^1.6.0",
     "typescript": "2.7.2"
+  },
+  "dependencies": {
+    "@types/cannon": "^0.1.2",
+    "@types/three": "^0.89.10",
+    "aframe-physics-system": "^3.0.0"
   }
 }

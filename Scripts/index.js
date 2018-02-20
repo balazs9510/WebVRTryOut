@@ -1,4 +1,4 @@
-
+window.webvr = window.webvr ||{};
 AFRAME.registerComponent('move', {
   schema: {
     target: { type: 'selector' },
@@ -72,50 +72,38 @@ AFRAME.registerComponent('follow', {
     //console.log(time);
   }
 });
-var colors = ["red", "green", "blue", "yellow", "purple"];
-var durations = [1000, 500, 750];
-class Pale {
-
-  constructor(height, width, depth) {
-    this.height = height;
-    this.width = width;
-    this.depth = depth;
-    this.position = THREE.Vector3();
-    this.element = {};
-    this.src = "";
+AFRAME.registerComponent('pale-move',{
+  schema: {
+    play: { type: 'bool' }
+  },
+  tick: function (t, td) {
+    var position = this.el.object3D.position;
+    if(position.x >= 5){
+      this.el.setAttribute("velocity", "-1 0 0")
+    }
+    if(position.x <= -5){
+      this.el.setAttribute("velocity", "3 0 0")
+    }
   }
-  createPaleElement() {
-    var element = document.createElement('a-box');
-    element.setAttribute('static-body', '');
-    element.setAttribute('position', this.position);
-    element.setAttribute('color', colors[Math.round(Math.random() * 1000) % colors.length]);
-    element.setAttribute('height', this.height);
-    element.setAttribute('width', this.width);
-    element.setAttribute('depth', this.depth);
-    if (this.src != "")
-      element.setAttribute('src', this.src);
-    return element;
-  }
-
-}
-function addAnimation(htmlElement, y, z) {
-  var el = htmlElement;
-  // <a-animation attribute="position" to="-1 -2 -3" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-  var animation = document.createElement('a-animation');
-  animation.setAttribute('attribute', 'position');
-  animation.setAttribute('direction', 'alternate');
-  animation.setAttribute('repeat', 'indefinite');
-  animation.setAttribute('to', Math.round(Math.random() * 10) % 12 + " " + y + " " + z);
-  animation.setAttribute('dur', durations[Math.round(Math.random() * 10) % durations.length]);
-  el.appendChild(animation);
-}
+});
+// function addAnimation(htmlElement, y, z) {
+//   var el = htmlElement;
+//   // <a-animation attribute="position" to="-1 -2 -3" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+//   var animation = document.createElement('a-animation');
+//   animation.setAttribute('attribute', 'position');
+//   animation.setAttribute('direction', 'alternate');
+//   animation.setAttribute('repeat', 'indefinite');
+//   animation.setAttribute('to', Math.round(Math.random() * 10) % 12 + " " + y + " " + z);
+//   animation.setAttribute('dur', durations[Math.round(Math.random() * 10) % durations.length]);
+//   el.appendChild(animation);
+// }
 class Map {
   constructor() {
     this.Pales = new Array();
     var i;
     for (i = 0; i < 10; i++) {
       var item = new Pale(0.5, 5, 5)
-      item.position = { x: Math.round(Math.random() * 100) % 20, y: -2, z: -3 - (i * 5) };
+      item.position = { x: Math.round(Math.random() * 100) % 5, y: 3, z: -3 - (i * 5) };
       this.Pales.push(item);
     }
     var startPale = new Pale(0.5, 5, 5);
@@ -126,10 +114,10 @@ class Map {
   generateMap() {
     var sceneEl = document.querySelector('a-scene');
     this.Pales.forEach((e) => {
-      var element = e.createPaleElement();
-      if (e.src == "")
-        addAnimation(element, e.position.y, e.position.z);
-      sceneEl.appendChild(element);
+      e.element.setAttribute('position', e.position);
+      e.element.setAttribute('pale-move','');
+      e.element.setAttribute('velocity', '1 0 0')
+      sceneEl.appendChild(e.element);
     })
   }
 

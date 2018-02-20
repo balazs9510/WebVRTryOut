@@ -7,7 +7,9 @@
   <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
   <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.1/dist/aframe-physics-system.min.js"></script>
-  <script src="Scripts/main.js"></script>
+  <script src="Scripts/constants.js"></script>
+  <script src="Scripts/Models/pale.js"></script>
+  <script src="Scripts/index.js"></script>
 </head>
 
 <body>
@@ -15,24 +17,17 @@
     <a-assets>
          <img id="sky" src="Images/sky.jpg">
          <img id="start" src="Images/start.png">
+         <img id="lava" src="Images/lava.jpg">
     </a-assets>
-    <a-sky src="#sky"></a-sky>
-    <!--<a-entity position="1 1.5 -5" move="speed: 21" dynamic-body="mass: 23">
-        <a-box id="golyo" depth="1" height="6" width="1" color="green" > </a-box>
-    </a-entity>
-    
-    <a-box  id="movingPlane" color="red" position="3 -2 -3" depth="5" height="0.5" width="5" static-body>
-      <a-animation attribute="position" to="-1 -2 -3" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-    </a-box>
-    <a-box  color="blue" position="0 -2 -8" depth="5" height="0.5" width="5" static-body>
-      <a-animation attribute="position" to="5 -2 -8" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-    </a-box>-->
+    <a-sky src="#sky" radius="50"></a-sky>
+    <a-plane src="#lava" height="120" width="120" rotation="-90" position="0 -2 0" static-body></a-plane>
+    <a-camera static-body position="0 5 3" ></a-camera>
+    <a-sphere radius="1" color="yellow" position="0 5 -4" dynamic-body="mass:10"></a-sphere>
   </a-scene>
 </body>
 <script>
     var map = new Map();
     map.generateMap();
- 
 </script>
 
 </html>
