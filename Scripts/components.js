@@ -1,87 +1,108 @@
 window.webvr = window.webvr || {};
 AFRAME.registerComponent('move', {
-  schema: {
-    target: { type: 'selector' },
-    speed: { type: 'number' }
-  },
-  init: function () {
-    this.el.dataset.isMoving = false;
-    this.el.addEventListener('x-pressed', function (event) {
-      if (this.dataset.isMoving == "true")
-        this.dataset.isMoving = false
-      else
-        this.dataset.isMoving = true;
-    });
+    schema: {
+        target: { type: 'selector' },
+        speed: { type: 'number' }
+    },
+    init: function () {
+        this.el.dataset.isMoving = false;
+        this.el.addEventListener('x-pressed', function (event) {
+            if (this.dataset.isMoving == "true")
+                this.dataset.isMoving = false
+            else
+                this.dataset.isMoving = true;
+        });
 
-  },
-  tick: function (time, timeDelta) {
-    // var dirVec3 = new THREE.Vector3(1,0,0);
-    // // Grab position vectors (THREE.Vector3) from the entities' three.js objects.
-    // var currentPosition = this.el.object3D.position;
-    // var distance = dirVec3.length();
-    // // Don't go any closer if a close proximity has been reached.
-    // if (distance < 1) { return; }
-    // // Scale the direction vector's magnitude down to match the speed.
-    // var factor = this.data.speed / distance;
-    // ['x', 'y', 'z'].forEach(function (axis) {
-    //   dirVec3[axis] *= factor * (timeDelta / 1000);
-    // });
-    // // Translate the entity in the direction towards the target.
-    // this.el.setAttribute('position', {
-    //   x: currentPosition.x + dirVec3.x,
-    //   y: currentPosition.y + dirVec3.y,
-    //   z: currentPosition.z + dirVec3.z
-    // });
-    if (this.el.dataset.isMoving == "true")
-      this.el.body.velocity.x = -10;
-    else
-      this.el.body.velocity.x = 0;
-  }
+    },
+    tick: function (time, timeDelta) {
+        if (this.el.dataset.isMoving == "true")
+            this.el.body.velocity.x = -10;
+        else
+            this.el.body.velocity.x = 0;
+    }
 });
 
 AFRAME.registerComponent('pale-move', {
-  schema: {
-    play: { type: 'bool' }
-  },
-  tick: function (t, td) {
-    var position = this.el.object3D.position;
-    if (position.x >= 5) {
-      this.el.setAttribute("velocity", "-1 0 0")
+    schema: {
+        play: { type: 'bool' }
+    },
+    tick: function (t, td) {
+        var position = this.el.object3D.position;
+        if (position.x >= 5) {
+            this.el.setAttribute("velocity", "-1 0 0")
+        }
+        if (position.x <= -5) {
+            this.el.setAttribute("velocity", "3 0 0")
+        }
     }
-    if (position.x <= -5) {
-      this.el.setAttribute("velocity", "3 0 0")
-    }
-  }
 });
-AFRAME.registerComponent('start', {
-  tick: function (t, dt) {
-    var el = this.el;
-    if (this.greenMaskLength >= 5)
-      return;
-    if (el.dataset.started == "true") {
-      var whiteMask = document.getElementById('whiteLoadingMask');
-      var greenMask = document.getElementById('greenLoadingMask');
-      whiteMask.setAttribute('visible', 'true');
+AFRAME.registerComponent('menu-panel', {
+    schema: {
+        loadMaskColor: { default: 'green' },
+        maskHeight: { default: 0.2 },
+        maskWidth: { default: 6 },
+        duration: { default: 1.5 }
+    },
+    init: function () {
+        var self = this;
+        var el = this.el;
+        this.whiteMask = this.createWhiteMask(this.data);
+        this.loadMask = this.createLoadMask(this.data);
+        this.whiteMask.appendChild(this.loadMask);
 
-      if (this.starTime == null) {
-        this.starTime = t;
-        this.greenMaskLength = 0;
-      }
-      var dTime = t - (this.starTime - 1);
-      var p2 = whiteMask.object3D.position.x - (whiteMask.getAttribute('width') / 2 - 0.3);
-      //összhossz 4,7
-      this.greenMaskLength = dTime / 300;
-      if (this.greenMaskLength >= 4.55) {
-        el.setAttribute('visible', 'false');
-        var map = new Map();
-        map.generateMap();
-        el.removeAttribute('start');
-        return;
-      }
-      greenMask.setAttribute('width', this.greenMaskLength);
-      var p3 = p2 + this.greenMaskLength / 2;
-      greenMask.setAttribute('position', { x: p3, y: 0, z: 0.01 });
+        this.startCount = false;
+        el.appendChild(this.whiteMask);
+        el.addEventListener('mouseenter', function () {
+            self.startCount = true;
+        });
+        el.addEventListener('mouseleave', function () {
+            self.startCount = false;
+            var oldMask = self.loadMask;
+            self.loadMask = self.createLoadMask(self.data);
+            self.whiteMask.replaceChild(self.loadMask,oldMask);
+            self.whiteMask.setAttribute('visible', false);
+            self.starTime = null;
+        });
+    },
+    tick: function (t, td) {
+        if (this.startCount) {
+            this.whiteMask.setAttribute('visible', true);
+
+            if (this.starTime == null) {
+                this.starTime = t;
+            }
+            var dTime = t - (this.starTime - 0.0001);
+            var loadMaskLength = this.data.maskWidth * dTime / (this.data.duration * 1000);
+            var p2 = -1 * (this.data.maskWidth / 2);
+            if (dTime >= this.data.duration * 1000) {
+                this.el.setAttribute('visible',false);
+                this.el.emit('menuclicked', { menu_item_id: this.el.getAttribute('id') });
+                this.startCount = false;
+                return;
+            }
+            this.loadMask.setAttribute('width', loadMaskLength);
+            var p3 = p2 + loadMaskLength / 2;
+            this.loadMask.setAttribute('position', { x: p3, y: 0, z: 0.01 });
+            console.log(loadMaskLength);
+        } else {
+            this.whiteMask.setAttribute('visible', false);
+        }
+    },
+    createWhiteMask(data) {
+        var whiteMask = document.createElement('a-plane');
+        whiteMask.setAttribute('visible', false);
+        whiteMask.setAttribute('color', 'white');
+        whiteMask.setAttribute('width', data.maskWidth);
+        whiteMask.setAttribute('height', data.maskHeight);
+        whiteMask.setAttribute('position', "0 -0.6 0.01");
+        return whiteMask;
+    },
+    createLoadMask(data) {
+        var loadMask = document.createElement('a-plane');
+        loadMask.setAttribute('color', data.loadMaskColor);
+        loadMask.setAttribute('width', 0.01);
+        loadMask.setAttribute('height', data.maskHeight);
+        loadMask.setAttribute('position', "0 0 0.001");
+        return loadMask;
     }
-    console.log(t);
-  }
 });
