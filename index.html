@@ -7,27 +7,40 @@
   <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
   <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.1/dist/aframe-physics-system.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="Scripts/constants.js"></script>
+    <script src="Scripts/components.js"></script>
+
   <script src="Scripts/Models/pale.js"></script>
+    <script src="Scripts/Models/map.js"></script>
   <script src="Scripts/index.js"></script>
 </head>
 
 <body>
-  <a-scene physics>
+  <a-scene physics stats>
     <a-assets>
-         <img id="sky" src="Images/sky.jpg">
-         <img id="start" src="Images/start.png">
-         <img id="lava" src="Images/lava.jpg">
+      <img id="sky" src="Images/sky.jpg">
+      <img id="start" src="Images/start.png">
+      <img id="lava" src="Images/lava.jpg">
     </a-assets>
     <a-sky src="#sky" radius="50"></a-sky>
     <a-plane src="#lava" height="120" width="120" rotation="-90" position="0 -2 0" static-body></a-plane>
-    <a-camera static-body position="0 5 3" ></a-camera>
-    <a-sphere radius="1" color="yellow" position="2 5 -4" dynamic-body="mass:10"></a-sphere>
+    <!--<a-sphere radius="1" color="yellow" position="2 5 -4" dynamic-body="mass:10"></a-sphere>-->
+    <a-entity position="-4 2 -5" rotation="-10 20 0" 
+        event-set__mouseenter="_event: mouseenter; data-started: true"
+        event-set__mouseleave="_event: mouseleave; data-started: false" start>
+      <a-plane color="gray" width="6" height="2"></a-plane>
+      <a-plane color="white" width="5" height="0.2" position="0 -0.6 0.01" id="whiteLoadingMask" visible="false">
+            <a-plane color="green" width="4.7" height="0.15" position="0 0 0.001" id="greenLoadingMask"></a-plane>
+      </a-plane>
+      <a-text value="New Game" color="black" align="center" height="10" width="10"></a-text>
+    </a-entity>
+     <a-camera>
+    <a-cursor id="cursor">
+    </a-cursor>
+  </a-camera>
   </a-scene>
+
 </body>
-<script>
-    var map = new Map();
-    map.generateMap();
-</script>
 
 </html>
