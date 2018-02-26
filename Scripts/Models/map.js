@@ -13,7 +13,7 @@ class Map {
     var sceneEl = document.querySelector('a-scene');
     this.Pales.forEach((e) => {
       e.element.setAttribute('position', e.position);
-      e.element.setAttribute('pale-move', '');
+      e.element.setAttribute('move', '');
       e.element.setAttribute('velocity', '1 0 0')
       sceneEl.appendChild(e.element);
     })

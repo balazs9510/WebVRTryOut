@@ -1,38 +1,30 @@
 window.webvr = window.webvr || {};
+
 AFRAME.registerComponent('move', {
     schema: {
-        target: { type: 'selector' },
-        speed: { type: 'number' }
+        velocity: { type: 'vec3', default: { x: -1, y: 0, z: 0 } },
+        way: { type: 'string', default: "TwoWay" },
+        to: {  type: 'vec3', default: { x: 10, y: 0, z: 0 } }
     },
-    init: function () {
-        this.el.dataset.isMoving = false;
-        this.el.addEventListener('x-pressed', function (event) {
-            if (this.dataset.isMoving == "true")
-                this.dataset.isMoving = false
-            else
-                this.dataset.isMoving = true;
-        });
+    init: function(){
 
-    },
-    tick: function (time, timeDelta) {
-        if (this.el.dataset.isMoving == "true")
-            this.el.body.velocity.x = -10;
-        else
-            this.el.body.velocity.x = 0;
-    }
-});
-
-AFRAME.registerComponent('pale-move', {
-    schema: {
-        play: { type: 'bool' }
     },
     tick: function (t, td) {
         var position = this.el.object3D.position;
-        if (position.x >= 5) {
-            this.el.setAttribute("velocity", "-1 0 0")
-        }
-        if (position.x <= -5) {
-            this.el.setAttribute("velocity", "3 0 0")
+        if (this.data.way == "TwoWay") {
+            if (position.x >= this.data.to.x) {
+                this.el.setAttribute("velocity", this.data.velocity)
+            }
+            if (position.x <= -1 * this.data.to.x) {
+                var vel = this.data.velocity;
+                this.el.setAttribute("velocity", {x : -1 * vel.x, y: vel.y, z: vel.z});
+            }
+        }else{
+            if (position.y <= this.data.to.y) {
+                this.el.setAttribute("velocity", this.data.velocity)
+            }else{
+                this.el.setAttribute("velocity", '0 0 0');
+            }
         }
     }
 });
@@ -49,7 +41,6 @@ AFRAME.registerComponent('menu-panel', {
         this.whiteMask = this.createWhiteMask(this.data);
         this.loadMask = this.createLoadMask(this.data);
         this.whiteMask.appendChild(this.loadMask);
-
         this.startCount = false;
         el.appendChild(this.whiteMask);
         el.addEventListener('mouseenter', function () {
@@ -59,7 +50,7 @@ AFRAME.registerComponent('menu-panel', {
             self.startCount = false;
             var oldMask = self.loadMask;
             self.loadMask = self.createLoadMask(self.data);
-            self.whiteMask.replaceChild(self.loadMask,oldMask);
+            self.whiteMask.replaceChild(self.loadMask, oldMask);
             self.whiteMask.setAttribute('visible', false);
             self.starTime = null;
         });
@@ -75,7 +66,7 @@ AFRAME.registerComponent('menu-panel', {
             var loadMaskLength = this.data.maskWidth * dTime / (this.data.duration * 1000);
             var p2 = -1 * (this.data.maskWidth / 2);
             if (dTime >= this.data.duration * 1000) {
-                this.el.setAttribute('visible',false);
+                this.el.setAttribute('visible', false);
                 this.el.emit('menuclicked', { menu_item_id: this.el.getAttribute('id') });
                 this.startCount = false;
                 return;
@@ -83,7 +74,6 @@ AFRAME.registerComponent('menu-panel', {
             this.loadMask.setAttribute('width', loadMaskLength);
             var p3 = p2 + loadMaskLength / 2;
             this.loadMask.setAttribute('position', { x: p3, y: 0, z: 0.01 });
-            console.log(loadMaskLength);
         } else {
             this.whiteMask.setAttribute('visible', false);
         }

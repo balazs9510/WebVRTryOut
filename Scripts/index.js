@@ -8,5 +8,14 @@ $(function () {
 
   startPale.src = "#start";
   startPale.position = { x: 0, y: -2, z: 2 };
+  startPale.element.setAttribute('position', startPale.position);
+  startPale.element.setAttribute('src', startPale.src);
+  startPale.element.setAttribute('color', '');
   sceneEl.appendChild(startPale.element);
+  sceneEl.addEventListener('menuclicked', function(){
+    var map = new Map();
+    map.generateMap();
+    $("#startGame").remove();
+    startPale.element.setAttribute('move', 'way: OneWay ; velocity : 0 2 0; to : 0 3 0');
+  });
 });

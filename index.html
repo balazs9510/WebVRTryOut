@@ -23,19 +23,10 @@
       <img id="start" src="Images/start.png">
       <img id="lava" src="Images/lava.jpg">
     </a-assets>
-    <a-sky src="#sky" radius="50"></a-sky>
+    <a-sky src="#sky" radius="80"></a-sky>
     <a-plane src="#lava" height="120" width="120" rotation="-90" position="0 -2 0" static-body></a-plane>
-    <!--<a-sphere radius="1" color="yellow" position="2 5 -4" dynamic-body="mass:10"></a-sphere>-->
-    <!--<a-entity position="-4 2 -5" rotation="-10 20 0" 
-        event-set__mouseenter="_event: mouseenter; data-started: true"
-        event-set__mouseleave="_event: mouseleave; data-started: false" start>
-      <a-plane color="gray" width="6" height="2"></a-plane>
-      <a-plane color="white" width="5" height="0.2" position="0 -0.6 0.01" id="whiteLoadingMask" visible="false">
-            <a-plane color="green" width="4.7" height="0.15" position="0 0 0.001" id="greenLoadingMask"></a-plane>
-      </a-plane>
-      <a-text value="New Game" color="black" align="center" height="10" width="10"></a-text>
-    </a-entity>-->
-    <a-entity position="-4 2 -5" rotation="-10 20 0" menu-panel>
+    <a-sphere id="testObject" radius="1" color="yellow" position="2 5 2" dynamic-body="mass:10"></a-sphere>
+    <a-entity position="-4 2 -5" rotation="-10 20 0" menu-panel="maskWidth: 5" id="startGame">
       <a-plane color="gray" width="6" height="2"></a-plane>
       <a-text value="New Game" color="black" align="center" height="10" width="10"></a-text>
     </a-entity>
