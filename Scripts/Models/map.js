@@ -14,7 +14,11 @@ class Map {
     this.Pales.forEach((e) => {
       e.element.setAttribute('position', e.position);
       e.element.setAttribute('move', '');
-      e.element.setAttribute('velocity', '1 0 0')
+      var x =  Math.random()*5;
+      if((Math.floor(Math.random()  * 4.0)) % 2.0 == 0)
+        x = -1 *x;
+      console.log(x);
+      e.element.setAttribute('velocity', {x: x, y:0,z:0})
       sceneEl.appendChild(e.element);
     })
 

@@ -9,7 +9,12 @@
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.1/dist/aframe-physics-system.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="Scripts/constants.js"></script>
-  <script src="Scripts/components.js"></script>
+  <script src="Scripts/Components/menu-panel.js"></script>
+  <script src="Scripts/Components/pale-move.js"></script>
+  <script src="Scripts/Components/player.js"></script>
+  <script src="Scripts/Components/follow.js"></script>
+
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
 
   <script src="Scripts/Models/pale.js"></script>
   <script src="Scripts/Models/map.js"></script>
@@ -17,7 +22,7 @@
 </head>
 
 <body>
-  <a-scene physics stats>
+  <a-scene stats physics="friction: 1;">
     <a-assets>
       <img id="sky" src="Images/sky.jpg">
       <img id="start" src="Images/start.png">
@@ -25,15 +30,18 @@
     </a-assets>
     <a-sky src="#sky" radius="80"></a-sky>
     <a-plane src="#lava" height="120" width="120" rotation="-90" position="0 -2 0" static-body></a-plane>
-    <a-sphere id="testObject" radius="1" color="yellow" position="2 5 2" dynamic-body="mass:10"></a-sphere>
+    <!--<a-sphere id="testObject" radius="1" color="yellow" position="0 5 2" dynamic-body="mass:10" velocity='0 0 0'></a-sphere>-->
     <a-entity position="-4 2 -5" rotation="-10 20 0" menu-panel="maskWidth: 5" id="startGame">
       <a-plane color="gray" width="6" height="2"></a-plane>
       <a-text value="New Game" color="black" align="center" height="10" width="10"></a-text>
     </a-entity>
-    <a-camera>
-      <a-cursor id="cursor">
-      </a-cursor>
-    </a-camera>
+    <!--<a-camera wasd-controls="enabled:false" position="0 4 -3" follow="target: #player; speed : 4" id="camera">
+      <a-cursor></a-cursor>
+    </a-camera>-->
+
+    <a-entity position="0 5 2" player id="player">
+    </a-entity>
+
   </a-scene>
 
 </body>
