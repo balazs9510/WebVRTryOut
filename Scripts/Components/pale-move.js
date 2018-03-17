@@ -1,6 +1,4 @@
-window.webvr = window.webvr || {};
-
-AFRAME.registerComponent('move', {
+module.exports = AFRAME.registerComponent('move', {
     schema: {
         velocity: { type: 'vec3', default: { x: -1, y: 0, z: 0 } },
         way: { type: 'string', default: "TwoWay" },

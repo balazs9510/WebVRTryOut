@@ -1,24 +1,10 @@
 <html>
 
 <head>
-  <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
-  <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
-  <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
-  <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
-  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.1/dist/aframe-physics-system.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="Scripts/constants.js"></script>
-  <script src="Scripts/Components/menu-panel.js"></script>
-  <script src="Scripts/Components/pale-move.js"></script>
-  <script src="Scripts/Components/player.js"></script>
-  <script src="Scripts/Components/follow.js"></script>
-
-  <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
-
-  <script src="Scripts/Models/pale.js"></script>
-  <script src="Scripts/Models/map.js"></script>
-  <script src="Scripts/index.js"></script>
+  <script src="Scripts/Build/aframe.min.js"></script>
+  <script src="Scripts/Build/aframe-physics-system.min.js"></script>
+  <script src="Scripts/Build/jquery.min.js"></script>
+  <script src="Scripts/Build/aframe-extras.min.js"></script>
 </head>
 
 <body>
@@ -33,7 +19,7 @@
     <!--<a-sphere id="testObject" radius="1" color="yellow" position="0 5 2" dynamic-body="mass:10" velocity='0 0 0'></a-sphere>-->
     <a-entity position="-4 2 -5" rotation="-10 20 0" menu-panel="maskWidth: 5" id="startGame">
       <a-plane color="gray" width="6" height="2"></a-plane>
-      <a-text value="New Game" color="black" align="center" height="10" width="10"></a-text>
+      <a-text value="New Game" color="black" align="center" height="10" width="10" position=" 0 0 0.1"></a-text>
     </a-entity>
     <!--<a-camera wasd-controls="enabled:false" position="0 4 -3" follow="target: #player; speed : 4" id="camera">
       <a-cursor></a-cursor>
@@ -43,7 +29,7 @@
     </a-entity>
 
   </a-scene>
-
+  <script src="dist/bundle.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
-window.webvr = window.webvr || {};
-class Map {
+import {Pale} from '../Models/pale';
+export class Map {
   constructor() {
     this.Pales = new Array();
     var i;

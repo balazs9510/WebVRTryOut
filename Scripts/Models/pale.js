@@ -1,6 +1,4 @@
-window.webvr = window.webvr || {};
-class Pale {
-
+export class Pale {
     constructor(height, width, depth) {
         this.height = height;
         this.width = width;
@@ -14,7 +12,7 @@ class Pale {
     }
     createPaleElement() {
         var element = document.createElement('a-box');
-        element.setAttribute(STATIC_BODY, '');
+        element.setAttribute('static-body', '');
         element.setAttribute('position', this.position);
         element.setAttribute('height', this.height);
         element.setAttribute('width', this.width);

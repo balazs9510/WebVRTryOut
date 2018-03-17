@@ -1,5 +1,5 @@
-window.webvr = window.webvr || {};
-AFRAME.registerComponent('player', {
+
+module.exports = AFRAME.registerComponent('player', {
     schema: {
     },
     init: function () {

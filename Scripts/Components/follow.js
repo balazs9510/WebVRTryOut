@@ -1,4 +1,4 @@
-AFRAME.registerComponent('follow', {
+module.exports = AFRAME.registerComponent('follow', {
   schema: {
     target: {type: 'selector'},
     speed: {type: 'number'}

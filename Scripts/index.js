@@ -1,6 +1,7 @@
-window.webvr = window.webvr || {};
+import { Pale } from './Models/pale';
+import { Map } from './Models/map';
+require('./Components/all-component')();
 $(function () {
-
   var whiteMask = document.getElementById('whiteLoadingMask');
   var greenMask = document.getElementById('greenLoadingMask');
   var startPale = new Pale(0.5, 5, 5);
@@ -21,7 +22,7 @@ $(function () {
   });
   var player = document.getElementById('player');
   document.addEventListener('keydown', function (event) {
-    if(event.code == 'KeyW'){
+    if (event.code == 'KeyW') {
       player.components.player.wpressed = true;
     }
   });

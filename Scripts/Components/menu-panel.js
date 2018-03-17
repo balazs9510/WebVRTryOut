@@ -1,6 +1,4 @@
-window.webvr = window.webvr || {};
-
-AFRAME.registerComponent('menu-panel', {
+module.exports = AFRAME.registerComponent('menu-panel', {
     schema: {
         loadMaskColor: { default: 'green' },
         maskHeight: { default: 0.2 },
