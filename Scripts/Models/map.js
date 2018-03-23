@@ -17,7 +17,6 @@ export class Map {
       var x =  Math.random()*5;
       if((Math.floor(Math.random()  * 4.0)) % 2.0 == 0)
         x = -1 *x;
-      console.log(x);
       e.element.setAttribute('velocity', {x: x, y:0,z:0})
       sceneEl.appendChild(e.element);
     })

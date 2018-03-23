@@ -15,7 +15,7 @@
       <img id="lava" src="Images/lava.jpg">
     </a-assets>
     <a-sky src="#sky" radius="80"></a-sky>
-    <a-plane src="#lava" height="120" width="120" rotation="-90" position="0 -2 0" static-body></a-plane>
+    <a-plane src="#lava" id="lavaPlane" height="120" width="120" rotation="-90" position="0 -2 0" static-body></a-plane>
     <!--<a-sphere id="testObject" radius="1" color="yellow" position="0 5 2" dynamic-body="mass:10" velocity='0 0 0'></a-sphere>-->
     <a-entity position="-4 2 -5" rotation="-10 20 0" menu-panel="maskWidth: 5" id="startGame">
       <a-plane color="gray" width="6" height="2"></a-plane>
@@ -29,7 +29,7 @@
     </a-entity>
 
   </a-scene>
-  <script src="dist/bundle.js"></script>
+  <script src="assets/bundle.js"></script>
 </body>
 
 </html>

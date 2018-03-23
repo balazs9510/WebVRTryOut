@@ -4,7 +4,7 @@
   "description": "demo project",
   "scripts": {
     "lite": "lite-server --port 10001",
-    "start": "webpack && npm run lite"
+    "start": "webpack-dev-server"
   },
   "author": "Berta Balazs",
   "license": "ISC",

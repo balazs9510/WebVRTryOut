@@ -13,6 +13,8 @@ module.exports = AFRAME.registerComponent('player', {
         });
     },
     tick: function (t, td) {
+        if(this.el.body !== undefined)
+        this.el.body.quaternion.set(0,0,0,1);
         if (!this.gamestarted) return;
         if (this.wpressed) {
             // Move position
@@ -24,6 +26,8 @@ module.exports = AFRAME.registerComponent('player', {
             ['x', 'y', 'z'].forEach(function (axis) {
                 lookAtVector[axis] *= factor * (td / 1000);
             });
+            this.lookAtVector = lookAtVector;
+            this.nextPost = {x: currPos.x + lookAtVector.x , y: currPos.y, z:  currPos.z + lookAtVector.z};
             this.el.body.position.set(currPos.x + lookAtVector.x , currPos.y, currPos.z + lookAtVector.z )
 
             this.wpressed = false;
