@@ -18,33 +18,31 @@ module.exports = AFRAME.registerComponent('menu-panel', {
         });
         el.addEventListener('mouseleave', function () {
             self.startCount = false;
-            var oldMask = self.loadMask;
-            self.loadMask = self.createLoadMask(self.data);
-            self.whiteMask.replaceChild(self.loadMask, oldMask);
-            self.whiteMask.setAttribute('visible', false);
-            self.starTime = null;
         });
     },
     tick: function (t, td) {
-        if (this.startCount) {
+        if (this.startCount || this.whiteMaskWatch) {
             this.whiteMask.setAttribute('visible', true);
 
             if (this.starTime == null) {
                 this.starTime = t;
             }
             var dTime = t - (this.starTime - 0.0001);
-            var loadMaskLength = this.data.maskWidth * dTime / (this.data.duration * 1000);
-            var p2 = -1 * (this.data.maskWidth / 2);
             if (dTime >= this.data.duration * 1000) {
                 this.el.setAttribute('visible', false);
                 this.el.emit('menuclicked', { menu_item_id: this.el.getAttribute('id') });
                 this.startCount = false;
                 return;
             }
+            var loadMaskLength = this.data.maskWidth * dTime / (this.data.duration * 1000);
+            var p2 = -1 * (this.data.maskWidth / 2);
             this.loadMask.setAttribute('width', loadMaskLength);
             var p3 = p2 + loadMaskLength / 2;
+            console.log(loadMaskLength);
             this.loadMask.setAttribute('position', { x: p3, y: 0, z: 0.01 });
         } else {
+            this.starTime = null;
+            //this.loadMask = this.createLoadMask(this.data);
             this.whiteMask.setAttribute('visible', false);
         }
     },
@@ -55,6 +53,13 @@ module.exports = AFRAME.registerComponent('menu-panel', {
         whiteMask.setAttribute('width', data.maskWidth);
         whiteMask.setAttribute('height', data.maskHeight);
         whiteMask.setAttribute('position', "0 -0.6 0.01");
+        whiteMask.parent = this.el;
+        whiteMask.addEventListener('mouseenter', function () {
+            whiteMask.parent.whiteMaskWatch = true;
+        });
+        whiteMask.addEventListener('mouseleave', function () {
+            whiteMask.parent.whiteMaskWatch = false;
+        });
         return whiteMask;
     },
     createLoadMask(data) {
@@ -63,6 +68,7 @@ module.exports = AFRAME.registerComponent('menu-panel', {
         loadMask.setAttribute('width', 0.01);
         loadMask.setAttribute('height', data.maskHeight);
         loadMask.setAttribute('position', "0 0 0.001");
+        loadMask.parent = this.el;
         return loadMask;
     }
 });
