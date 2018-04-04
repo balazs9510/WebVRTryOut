@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <a-scene stats physics="friction: 1;">
+  <a-scene stats physics="friction: 1;" observer>
     <a-assets>
       <img id="sky" src="Images/sky.jpg">
       <img id="start" src="Images/start.png">
@@ -21,12 +21,6 @@
       <a-plane color="gray" width="6" height="2"></a-plane>
       <a-text value="New Game" color="black" align="center" height="10" width="10" position=" 0 0 0.1"></a-text>
     </a-entity>
-    <a-camera wasd-controls="enabled:false" position="0 4 -3" id="camera">
-      <a-cursor></a-cursor>
-    </a-camera>
-
- 
-
   </a-scene>
   <script src="assets/bundle.js"></script>
 </body>

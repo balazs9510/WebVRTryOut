@@ -13,6 +13,7 @@ export class Player {
     createBody() {
         var playerEntity = document.createElement('a-entity');
         playerEntity.setAttribute('id', "playerEntity");
+        playerEntity.setAttribute('player','');
         playerEntity.setAttribute('position', this.position);
         playerEntity.setAttribute('dynamic-body', 'mass: 30; shape: box');
         var sphere = document.createElement('a-sphere');

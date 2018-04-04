@@ -1,9 +1,10 @@
 import { Pale } from './Models/pale';
 import { Map } from './Models/map';
-import {Player} from './Models/player';
+import { Player } from './Models/player';
+import { MoveControlPanel } from './Models/move-control-panel';
 require('./Components/all-component')();
 $(function () {
-  var player = new Player({x:0,y:0,z:0}, );
+  var player = new Player({ x: 0, y: 0, z: 0 }, );
   var whiteMask = document.getElementById('whiteLoadingMask');
   var greenMask = document.getElementById('greenLoadingMask');
   var startPale = new Pale(0.5, 5, 5);
@@ -21,14 +22,12 @@ $(function () {
     scene.Pales = map.Pales;
     $("#startGame").remove();
     startPale.element.setAttribute('move', 'way: OneWay ; velocity : 0 2 0; to : 0 3 0');
-    player.components.player.gamestarted = true;
+    player.isMoveEnabled = true;
   });
- 
- //var player = document.getElementById('player');
   document.player = player;
   document.addEventListener('keydown', function (event) {
     if (event.code == 'KeyW') {
-      player.components.player.wpressed = true;
+      player.moving = true;
     }
   });
   // var lava_plane = document.getElementById("lavaPlane");
@@ -60,3 +59,4 @@ $(function () {
   // });
   var testObject = document.getElementById('testObject');
 });
+
