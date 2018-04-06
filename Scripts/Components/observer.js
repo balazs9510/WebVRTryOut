@@ -17,5 +17,8 @@ module.exports = AFRAME.registerComponent('observer', {
         this.moveControl = new MoveControl.MoveControlPanel(1, 1, data);
         this.moveControl.player = this.player;
         this.el.appendChild(this.moveControl.el);
+    },
+    removeMovceControl: function(){
+        this.el.removeChild(this.moveControl.el);
     }
 });

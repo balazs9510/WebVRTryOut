@@ -5,6 +5,7 @@ export class Player {
         this.isMoveEnabled = false;
         this.isContinousMoving = false;
         this.moving = false;
+        this.end = false;
         var _this = this;
         this.el.addEventListener('menuclicked', function () {
             _this.isMoveEnabled = true;
