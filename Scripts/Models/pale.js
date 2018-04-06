@@ -3,7 +3,7 @@ export class Pale {
         this.height = height;
         this.width = width;
         this.depth = depth;
-        this.position = THREE.Vector3();
+        this.position =  new THREE.Vector3();
         this.element = {};
         this.src = "";
         this.prevPale = null;

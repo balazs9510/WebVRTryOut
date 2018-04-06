@@ -1,6 +1,6 @@
 module.exports = AFRAME.registerComponent('player', {
     tick: function (t, td) {
-        var player = document.player;
+        var player = this.player;
         if (player)
             if (player.isMoveEnabled) {
                 player.move(td);
