@@ -29,8 +29,8 @@ export class MoveControlPanel {
         arrow.setAttribute('src', "#arrow-inactive");
         arrow.addEventListener('mouseenter', function () {
             c.isMoving = !c.isMoving;
-            c.player.isContinousMoving =  !c.player.isContinousMoving;
-            c.player.moving =  c.isMoving;
+            c.player.isContinousMoving = !c.player.isContinousMoving;
+            c.player.moving = c.isMoving;
             arrow.setAttribute('src', c.getSourceImage(c.isMoving));
         });
         return arrow;
@@ -41,12 +41,11 @@ export class MoveControlPanel {
         else
             return "#arrow-inactive";
     }
-    switchVisibility(camLookAt) {
-        camLookAt.x = 0;
-        camLookAt.z = 0;
+    switchVisibility() {
+        var camLookAt = this.player.getLookAtVector();
         var cameraAngle = camLookAt.angleTo(new THREE.Vector3(0, -1, 0));
-        //console.log(cameraAngle);
-        if (utils.toDegree(cameraAngle) < 40) {
+        console.log(utils.toDegree(cameraAngle));
+        if (utils.toDegree(cameraAngle) < 80) {
             this.visible = true;
 
         } else {
@@ -54,30 +53,32 @@ export class MoveControlPanel {
         }
         this.el.setAttribute("visible", this.visible);
     }
-    setPosition(camLookAt, camPos) {
-        //console.log( );
-        camPos.distanceTo(this.position)
-        var distZ = camPos.distanceTo(this.position)
-        if (distZ < 0.5 || distZ > 2.5) {
-            var newPos = new THREE.Vector3(camPos.x - 1, camPos.y - 0.3, camPos.z);
-            newPos.z -= 2;
-            this.position = newPos;
-            this.el.setAttribute("position", newPos);
-        }
-        //var quaternion = new THREE.Quaternion();
-        //     camLookAt.y = 0;
-        //     var cameraAngle = camLookAt.angleTo(new THREE.Vector3(0, 0, -1));
-        //    // console.log(cameraAngle);
-        //     quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), cameraAngle);
-        //     //console.log(quaternion);
+    move(td) {
+        var camLookAt = this.player.getLookAtVector();
 
-        // camPos.applyQuaternion(quaternion);
-        // camPos.y-= 1;
-        // var y = utils.toDegree(cameraAngle);
-        // if (camPos.x > 0) {
-        //     this.el.setAttribute("rotation", { x: -60, y: -y, z: 0 });
-        // } else {
-        //     this.el.setAttribute("rotation", { x: -60, y: y, z: 0 });
-        // }
+        //this.el.setAttribute("position", nextPos);
+        var quaternion = new THREE.Quaternion();
+        camLookAt.y = 0;
+        var cameraAngle = camLookAt.angleTo(new THREE.Vector3(0, 0, -1));
+        // console.log(cameraAngle);
+        quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), cameraAngle);
+        //console.log(quaternion);
+        var camPos = new THREE.Vector3(this.player.position.x,this.player.position.y,this.player.position.z)
+        camPos.applyQuaternion(quaternion);
+       
+        var y = utils.toDegree(cameraAngle);
+        if (camLookAt.x > 0) {
+            this.el.setAttribute("rotation", { x: -80, y: -y, z: 0 });
+        } else {
+            this.el.setAttribute("rotation", { x: -80, y: y, z: 0 });
+        }
+        var nextPos = this.player.getLookAtVector();    
+        nextPos.y = 0;    
+        var playerPos = this.player.position;
+        ['x', 'y', 'z'].forEach(function (axis) {
+            nextPos[axis] += playerPos[axis];
+        });
+        nextPos.y -= 0.2;
+        this.el.setAttribute("position", nextPos)
     }
 }

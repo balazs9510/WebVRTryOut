@@ -38,7 +38,7 @@ module.exports = AFRAME.registerComponent('menu-panel', {
             var p2 = -1 * (this.data.maskWidth / 2);
             this.loadMask.setAttribute('width', loadMaskLength);
             var p3 = p2 + loadMaskLength / 2;
-            console.log(loadMaskLength);
+           // console.log(loadMaskLength);
             this.loadMask.setAttribute('position', { x: p3, y: 0, z: 0.01 });
         } else {
             this.starTime = null;

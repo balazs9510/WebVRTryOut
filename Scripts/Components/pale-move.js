@@ -15,7 +15,7 @@ module.exports = AFRAME.registerComponent('move', {
             }
             if (position.x <= -1 * this.data.to.x) {
                 var vel = this.data.velocity;
-                console.log(vel);
+               // console.log(vel);
                 this.el.setAttribute("velocity", {x : -1 * vel.x, y: vel.y, z: vel.z});
             }
         }else{

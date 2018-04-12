@@ -71,6 +71,13 @@ document.querySelector('a-scene').addEventListener('loaded', function () {
   document.addEventListener('keydown', function (event) {
     if (event.code == 'KeyW') {
       player.moving = true;
+      player.isContinousMoving = true;
+    }
+  });
+  document.addEventListener('keyup', function (event) {
+    if (event.code == 'KeyW') {
+      player.moving = false;
+      player.isContinousMoving = false;
     }
   });
 });

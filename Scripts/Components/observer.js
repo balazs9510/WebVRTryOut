@@ -7,14 +7,13 @@ module.exports = AFRAME.registerComponent('observer', {
             lookAt.applyQuaternion(this.player.camera.object3D.quaternion);
             // console.log(this.camera.object3D.getWorldPosition());
             if (this.moveControl) {
-                this.moveControl.setPosition(lookAt, this.player.el.object3D.position);
+                this.moveControl.move(td);
                 this.moveControl.switchVisibility(lookAt);
             }
-
         }
     },
     createMoveControl: function (data) {
-        this.moveControl = new MoveControl.MoveControlPanel(1, 1, data);
+        this.moveControl = new MoveControl.MoveControlPanel(0.5, 0.5, data);
         this.moveControl.player = this.player;
         this.el.appendChild(this.moveControl.el);
     },
