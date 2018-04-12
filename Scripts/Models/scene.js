@@ -2,10 +2,12 @@ export class Scene {
     constructor(data) {
         this.el = document.querySelector('a-scene');
         this.elements = [];
+        this.addAssets(data.assets);
         this.elements.push(this.createSky(data.sky));
         this.elements.push(this.createGround(data.ground));
+
         for (var i = 0; i < this.elements.length; i++) {
-           this.el.appendChild(this.elements[i]);
+            this.el.appendChild(this.elements[i]);
         }
     }
     createGround(groundData) {
@@ -29,30 +31,30 @@ export class Scene {
         if (skyData.src) {
             sky.setAttribute("src", skyData.src)
         } else {
-            sky.setAttribute("color", "#6EBAA7")
+            sky.setAttribute("color", skyData.color)
         }
         sky.setAttribute("id", skyData.id);
         return sky;
     }
-    removeElements(){
+    removeElements() {
         for (var i = 0; i < this.elements.length; i++) {
-           this.el.replaceChild(this.elements[i]);
+            this.el.replaceChild(this.elements[i]);
         }
     }
-    createMenuItem(menuItemData){
+    createMenuItem(menuItemData) {
         var menuItem = document.createElement('a-entity');
-        menuItem.setAttribute('rotation',"0 20 0"),
-        menuItem.setAttribute('id', menuItemData.id),
-        menuItem.setAttribute('menu-panel', 'text:'+menuItemData.text+";maskWidth: 4; blackPlaneHeight: 1.5");
+        menuItem.setAttribute('rotation', "0 20 0"),
+            menuItem.setAttribute('id', menuItemData.id),
+            menuItem.setAttribute('menu-panel', 'text:' + menuItemData.text + ";maskWidth: 4; blackPlaneHeight: 1.5");
         menuItem.setAttribute('position', menuItemData.position);
         return menuItem;
     }
-    createCamera(cameraData){
+    createCamera(cameraData) {
         var camera = document.createElement("a-camera");
         camera.setAttribute("id", cameraData.id)
         camera.setAttribute("position", cameraData.position);
-        if(cameraData.attributes != null){
-            for(var i = 0; i < cameraData.attributes.length; i++){
+        if (cameraData.attributes != null) {
+            for (var i = 0; i < cameraData.attributes.length; i++) {
                 var attr = cameraData.attributes[i];
                 camera.setAttribute(attr.name, attr.value);
             }
@@ -61,4 +63,16 @@ export class Scene {
         camera.appendChild(cursor);
         return camera;
     }
+    addAssets(assetsData) {
+        var assets = document.createElement('a-assets');
+        for (var i = 0; i < assetsData.length; i++) {
+            var asset = document.createElement(assetsData[i].type);
+            asset.setAttribute("src", assetsData[i].src);
+            asset.setAttribute("id", assetsData[i].id);
+            assets.appendChild(asset);
+        }
+        this.el.appendChild(assets);
+        this.elements.push(assets);
+    }
+
 }

@@ -1,32 +1,40 @@
 {
     "scene": {
+        "assets": [
+            {
+                "type": "img",
+                "src": "../Images/grid.jpg",
+                "id": "menuSceneGroundTexture"
+            }
+        ],
         "ground": {
+            "src": "#menuSceneGroundTexture",
             "color": "green",
-            "id": "#menuSceneGround",
-            "height": 10,
-            "width": 10,
+            "id": "menuSceneGround",
+            "height": 30,
+            "width": 30,
             "position": "0 0 0"
         },
         "sky": {
-            "color": "blue",
-            "id": "#menuSceneSky",
-            "radius": 10
+            "color": "green",
+            "id": "menuSceneSky",
+            "radius":10
         },
         "menu_items": [
             {
                 "text": "Level 1",
-                "id": "#menuItemNewGame",
+                "id": "menuItemNewGame",
                 "position": "-4 3 -5"
             },
             {
                 "text": "Level 2",
-                "id": "#menuItemNewGame",
+                "id": "menuItemNewGame",
                 "position": "-4 1 -5"
             }
         ],
         "camera": {
-            "id": "#menuSceneCamera",
-            "position": "0 0 0",
+            "id": "menuSceneCamera",
+            "position": "0 0 2",
             "attributes": [
                 {
                     "name": "wasd-controls",
