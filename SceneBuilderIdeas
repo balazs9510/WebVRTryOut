@@ -1,0 +1,15 @@
+Miből áll egy képernyő?
+    -scene
+        -> játék alatt physics, observer
+        -> assets
+        -> pálya elemek
+            - start, finish 
+            - mozgó elemek
+            - padló
+            - ég
+            - karakter/ játékos
+
+    - tervezett scenek:
+        -> Menu scene
+        -> Level scenes
+        -> Game over scene
