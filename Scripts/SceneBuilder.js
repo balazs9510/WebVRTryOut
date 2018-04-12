@@ -11,6 +11,9 @@ export class SceneBuilder {
     build() {
         var menu_items = this.data.menu_items;
         var cameraData = this.data.camera;
+        var paleData = this.data.paleData;
+        var pales = this.data.pales;
+        var player = this.data.player;
         if (menu_items != null) {
             for (var i = 0; i < menu_items.length; i++) {
                 var item = menu_items[i];
@@ -23,6 +26,12 @@ export class SceneBuilder {
             var camera = this.scene.createCamera(cameraData);
             this.scene.elements.push(camera);
             this.scene.el.appendChild(camera);
+        }
+        if(paleData){
+            this.scene.createPales(paleData,pales);
+        }
+        if(player){
+            this.scene.addPlayer(player);
         }
         return this.scene;
     }

@@ -80,12 +80,17 @@ document.querySelector('a-scene').addEventListener('loaded', function () {
   //     player.isContinousMoving = false;
   //   }
   // });
-   var menuScene = require("../Scenes/menuScene");
-   var scene = new SceneBuilder(menuScene.scene).build();
-   scene.el.addEventListener('menuclicked', function(e){
-     alert();
-   })
-   console.log();
+
+  var menuScene = require("../Scenes/menuScene");
+
+  var level1scene = require("../Scenes/Levels/level1");
+
+  var scene = new SceneBuilder(menuScene.scene).build();
+  scene.el.addEventListener('menuclicked', function (e) {
+    scene.removeElements();
+    scene = new SceneBuilder(level1scene.scene).build();
+  })
+  console.log();
 });
 
 

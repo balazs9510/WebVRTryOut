@@ -1,3 +1,5 @@
+import { Pale } from "./pale"
+import { Player } from "./player"
 export class Scene {
     constructor(data) {
         this.el = document.querySelector('a-scene');
@@ -38,7 +40,7 @@ export class Scene {
     }
     removeElements() {
         for (var i = 0; i < this.elements.length; i++) {
-            this.el.replaceChild(this.elements[i]);
+            this.el.removeChild(this.elements[i]);
         }
     }
     createMenuItem(menuItemData) {
@@ -74,5 +76,18 @@ export class Scene {
         this.el.appendChild(assets);
         this.elements.push(assets);
     }
-
+    createPales(paleData, pales) {
+        for (var i = 0; i < pales.length; i++) {
+            var currentPaleData = pales[i];
+            var pale = new Pale(paleData.height, paleData.width, paleData.depth, currentPaleData.src, currentPaleData.position, currentPaleData.velocity, paleData.colors[i % 5]);
+            this.el.appendChild(pale.el);
+            this.elements.push(pale.el);
+        }
+    }
+    addPlayer(playerData) {
+        var player = new Player(playerData.position);
+        this.el.appendChild(player.el);
+        this.elements.push(player.el)
+        this.player = player;
+    }
 }

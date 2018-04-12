@@ -1,0 +1,84 @@
+{
+    "scene": {
+        "assets": [
+            {
+                "type": "img",
+                "src": "../Images/lava.jpg",
+                "id": "levelOneLavaTexture"
+            },
+            {
+                "type": "img",
+                "src": "../Images/sky.jpg",
+                "id": "levelOneSkyTexture"
+            },
+            {
+                "type": "img",
+                "src": "../Images/start.png",
+                "id": "levelOneStartTexture"
+            },
+            {
+                "type": "img",
+                "src": "../Images/finish.jpg",
+                "id": "levelOneFinishTexture"
+            }
+        ],
+        "ground": {
+            "src": "#levelOneLavaTexture",
+            "color": "green",
+            "id": "levelOneGround",
+            "height": 50,
+            "width": 50,
+            "position": "0 -1 0"
+        },
+        "sky": {
+            "src": "#levelOneSkyTexture",
+            "id": "levelOneSky",
+            "radius": 25
+        },
+        "paleData": {
+            "width": 5,
+            "height": 0.5,
+            "depth": 5,
+            "colors": [
+                "#1a1e41",
+                "#2ed73a",
+                "#d22d2d",
+                "#0b133a",
+                "#d0f271"
+            ]
+        },
+        "pales": [
+            {
+                "src": "#levelOneStartTexture",
+                "position": "0 2 15"
+            },
+            {
+                "position": "0 2 10",
+                "velocity": "-3"
+            },
+            {
+                "position": "0 2 5",
+                "velocity": "4"
+            },
+            {
+                "position": "0 2 0",
+                "velocity": "-1"
+            },
+            {
+                "position": "0 2 -5",
+                "velocity": "1"
+            },
+            {
+                "position": "0 2 -10",
+                "velocity": "-2"
+            },
+            {
+                "src": "#levelOneFinishTexture",
+                "position": "0 2 -15"
+            }
+        ],
+        "player":{
+            "position":"0 2.5 15"
+        }
+    }
+}
