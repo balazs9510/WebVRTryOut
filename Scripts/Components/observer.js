@@ -5,32 +5,38 @@ module.exports = AFRAME.registerComponent('observer', {
     init: function () {
         var scene = this.el.scene;
         this.scene = scene;
-        var player = scene.player
-        this.player = player;
 
     },
     tick: function (t, td) {
-        var player = this.player;
-        if (Object.keys(player).length !== 0 || player.constructor !== Object) {
+        if (this.player) {
+            if (!this.moveControl) {
+                var playerPos = this.player.position;
+                var moveControlPoition = new THREE.Vector3(playerPos.x, playerPos.y, playerPos.z);
+                moveControlPoition.z -= 1;
+                this.createMoveControl(moveControlPoition);
+            }
             var lookAt = new THREE.Vector3(0, 0, -1);
-            lookAt.applyQuaternion(player.camera.object3D.quaternion);
+            lookAt.applyQuaternion(this.player.camera.object3D.quaternion);
             if (this.moveControl) {
                 this.moveControl.move(td);
                 this.moveControl.switchVisibility(lookAt);
             }
-            player.move(td);
+            this.player.move(td);
+        } else {
+            this.player = this.scene.player;
+            var player = this.player;
+            document.addEventListener('keydown', function (event) {
+                if (event.code == 'KeyW') {
+                    player.moving = true;
+                }
+            });
+            document.addEventListener('keyup', function (event) {
+                if (event.code == 'KeyW') {
+                    player.moving = false;
+                }
+            });
         }
-        this.player = this.scene.player;
-        document.addEventListener('keydown', function (event) {
-            if (event.code == 'KeyW') {
-                player.moving = true;
-            }
-        });
-        document.addEventListener('keyup', function (event) {
-            if (event.code == 'KeyW') {
-                player.moving = false;
-            }
-        });
+
 
     },
     createMoveControl: function (data) {

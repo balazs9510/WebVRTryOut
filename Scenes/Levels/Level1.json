@@ -1,13 +1,13 @@
 {
     "scene": {
-        "attributes":[
+        "attributes": [
             {
                 "name": "physics",
                 "value": ""
             },
             {
                 "name": "observer",
-                "value":""
+                "value": ""
             }
         ],
         "assets": [
@@ -30,6 +30,16 @@
                 "type": "img",
                 "src": "../Images/finish.jpg",
                 "id": "levelOneFinishTexture"
+            },
+            {
+                "type": "img",
+                "src": "../Images/mcparrow-active.png",
+                "id": "arrow-active"
+            },
+            {
+                "type": "img",
+                "src": "../Images/mcparrow-inactive.png",
+                "id": "arrow-inactive"
             }
         ],
         "ground": {
@@ -87,8 +97,8 @@
                 "position": "0 2 -15"
             }
         ],
-        "player":{
-            "position":"0 2.5 15"
+        "player": {
+            "position": "0 2.5 15"
         }
     }
 }

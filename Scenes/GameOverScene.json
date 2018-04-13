@@ -1,0 +1,61 @@
+{
+    "scene": {
+        "ground": {
+            "width": 20,
+            "height": 20,
+            "color": "black"
+        },
+        "sky": {
+            "color": "black",
+            "radius": 10
+        },
+        "items": [
+            {
+                "type": "a-text",
+                "attributes": [
+                    {
+                        "name": "value",
+                        "value": "GAME OVER"
+                    },
+                    {
+                        "name": "color",
+                        "value": "white"
+                    },
+                    {
+                        "name": "align",
+                        "value": "center"
+                    },
+                    {
+                        "name": "position",
+                        "value": "2 2 -2"
+                    },
+                    {
+                        "name": "width",
+                        "value": "15"
+                    },
+                    {
+                        "name": "height",
+                        "value": "10"
+                    }
+                ]
+            }
+        ],
+        "camera": {
+            "id": "gameOverCamera",
+            "position": "0 0 2",
+            "attributes": [
+                {
+                    "name": "wasd-controls",
+                    "value": "enabled:false"
+                }
+            ]
+        },
+        "menu_items": [
+            {
+                "text": "Back to menu",
+                "id": "menuItemBack",
+                "position": "-4 2 -2"
+            }
+        ]
+    }
+}

@@ -1,5 +1,6 @@
 import { Pale } from "./pale"
 import { Player } from "./player"
+var consts = require('../constants');
 export class Scene {
     constructor(data) {
         this.el = document.querySelector('a-scene');
@@ -7,15 +8,13 @@ export class Scene {
         this.elements = [];
         this.attributes = [];
         this.player = {};
-        this.addAssets(data.assets);
+        if (data.assets)
+            this.addAssets(data.assets);
         this.elements.push(this.createSky(data.sky));
         this.elements.push(this.createGround(data.ground));
         for (var i = 0; i < this.elements.length; i++) {
             this.el.appendChild(this.elements[i]);
-        } 
-        if (data.attributes)
-            this.addAttributes(data.attributes);
-       
+        }
     }
     addAttributes(attributesData) {
         for (var i = 0; i < attributesData.length; i++) {
@@ -36,6 +35,7 @@ export class Scene {
             ground.setAttribute("color", groundData.color)
         }
         ground.setAttribute("id", groundData.id);
+        this.ground = ground;
         return ground;
     }
     createSky(skyData) {
@@ -52,6 +52,11 @@ export class Scene {
     removeElements() {
         for (var i = 0; i < this.elements.length; i++) {
             this.el.removeChild(this.elements[i]);
+        }
+    }
+    removeAttributes() {
+        for (var i = 0; i < this.attributes.length; i++) {
+            this.el.removeAttribute(this.attributes[i].name);
         }
     }
     createMenuItem(menuItemData) {
@@ -97,8 +102,28 @@ export class Scene {
     }
     addPlayer(playerData) {
         var player = new Player(playerData.position);
+        var ground = this.ground;
         this.el.appendChild(player.el);
         this.elements.push(player.el)
         this.player = player;
+        var _self  = this;
+        player.el.addEventListener('collide', function (e) {
+            if (e.detail.body.id == ground.body.id) {
+                player.el.removeEventListener('collide',{});
+                player.el.emit(consts.events.gameover,{});
+            }
+        });
+    }
+    createItems(itemsData) {
+        for (var iter in itemsData) {
+            var item = itemsData[iter];
+            var itemEl = document.createElement(item.type);
+            for (var attrIter in item.attributes) {
+                var attribute = item.attributes[attrIter];
+                itemEl.setAttribute(attribute.name, attribute.value);
+            }
+            this.elements.push(itemEl);
+            this.el.appendChild(itemEl);
+        }
     }
 }

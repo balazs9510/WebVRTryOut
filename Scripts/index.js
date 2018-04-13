@@ -5,7 +5,6 @@ import { MoveControlPanel } from './Models/move-control-panel';
 import { SceneBuilder } from '../Scripts/SceneBuilder'
 require('./Components/all-component')();
 var utils = require('./utils');
-
 document.querySelector('a-scene').addEventListener('loaded', function () {
   // var player = new Player({ x: 0, y: 0, z: 2 }, );
   // var scene = document.querySelector('a-scene');
@@ -80,16 +79,21 @@ document.querySelector('a-scene').addEventListener('loaded', function () {
   //     player.isContinousMoving = false;
   //   }
   // });
-
+  var consts = require('./constants');
   var menuScene = require("../Scenes/menuScene");
-
+  var gameOverScene = require("../Scenes/gameoverscene");
   var level1scene = require("../Scenes/Levels/level1");
 
   var scene = new SceneBuilder(menuScene.scene).build();
-  scene.el.addEventListener('menuclicked', function (e) {
+  scene.el.addEventListener(consts.events.menuclicked, function (e) {
     scene.removeElements();
     scene = new SceneBuilder(level1scene.scene).build();
-  })
+  });
+  scene.el.addEventListener(consts.events.gameover, function(){
+    var builder = new SceneBuilder(gameOverScene.scene);
+    builder.cleanScene(scene);
+    scene = builder.build();
+  });
   console.log();
 });
 

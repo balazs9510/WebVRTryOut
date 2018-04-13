@@ -6,7 +6,9 @@ export class SceneBuilder {
         this.data = scene;
     }
     cleanScene(prevScene) {
+         prevScene.removeAttributes();
         prevScene.removeElements();
+       
     }
     build() {
         var menu_items = this.data.menu_items;
@@ -14,6 +16,8 @@ export class SceneBuilder {
         var paleData = this.data.paleData;
         var pales = this.data.pales;
         var player = this.data.player;
+        var attributes = this.data.attributes;
+        var items = this.data.items;
         if (menu_items != null) {
             for (var i = 0; i < menu_items.length; i++) {
                 var item = menu_items[i];
@@ -32,6 +36,12 @@ export class SceneBuilder {
         }
         if(player){
             this.scene.addPlayer(player);
+        }
+        if(items){
+            this.scene.createItems(items);
+        }
+        if(attributes){
+            this.scene.addAttributes(attributes);
         }
         return this.scene;
     }

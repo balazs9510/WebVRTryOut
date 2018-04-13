@@ -1,3 +1,4 @@
+var consts = require('../constants');
 module.exports = AFRAME.registerComponent('menu-panel', {
     schema: {
         loadMaskColor: { default: 'green' },
@@ -36,8 +37,8 @@ module.exports = AFRAME.registerComponent('menu-panel', {
             }
             var dTime = t - (this.starTime - 0.0001);
             if (dTime >= this.data.duration * 1000) {
-               //this.el.setAttribute('visible', false);
-                this.el.emit('menuclicked', { menu_item_id: this.el.getAttribute('id') });
+                //this.el.setAttribute('visible', false);
+                this.el.emit(consts.events.menuclicked, { menu_item_id: this.el.getAttribute('id') });
                 this.startCount = false;
                 return;
             }

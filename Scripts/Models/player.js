@@ -7,10 +7,14 @@ export class Player {
         var _this = this;
     }
     createBody() {
-        var playerEntity = document.createElement('a-entity');
+        var playerEntity = document.createElement('a-box');
+
+        playerEntity.setAttribute('depth', 1);
+        playerEntity.setAttribute('width', 1);
+        playerEntity.setAttribute('height', 1);
         playerEntity.setAttribute('id', "playerEntity");
         playerEntity.setAttribute('position', this.position);
-        playerEntity.setAttribute('dynamic-body', 'mass: 15; shape: box');
+        playerEntity.setAttribute('dynamic-body', 'mass: 20;');
         var sphere = document.createElement('a-sphere');
         sphere.setAttribute('radius', 0.5);
         var camera = document.createElement('a-camera');

@@ -44,8 +44,7 @@ export class MoveControlPanel {
     switchVisibility() {
         var camLookAt = this.player.getLookAtVector();
         var cameraAngle = camLookAt.angleTo(new THREE.Vector3(0, -1, 0));
-        console.log(utils.toDegree(cameraAngle));
-        if (utils.toDegree(cameraAngle) < 80) {
+        if (utils.toDegree(cameraAngle) < 70) {
             this.visible = true;
 
         } else {
@@ -73,7 +72,7 @@ export class MoveControlPanel {
             this.el.setAttribute("rotation", { x: -80, y: y, z: 0 });
         }
         var nextPos = this.player.getLookAtVector();    
-        nextPos.y = 0;    
+        nextPos.y = 0;   
         var playerPos = this.player.position;
         ['x', 'y', 'z'].forEach(function (axis) {
             nextPos[axis] += playerPos[axis];
