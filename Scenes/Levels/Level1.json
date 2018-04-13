@@ -1,5 +1,15 @@
 {
     "scene": {
+        "attributes":[
+            {
+                "name": "physics",
+                "value": ""
+            },
+            {
+                "name": "observer",
+                "value":""
+            }
+        ],
         "assets": [
             {
                 "type": "img",

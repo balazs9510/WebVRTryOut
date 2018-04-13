@@ -3,13 +3,24 @@ import { Player } from "./player"
 export class Scene {
     constructor(data) {
         this.el = document.querySelector('a-scene');
+        this.el.scene = this;
         this.elements = [];
+        this.attributes = [];
+        this.player = {};
         this.addAssets(data.assets);
         this.elements.push(this.createSky(data.sky));
         this.elements.push(this.createGround(data.ground));
-
         for (var i = 0; i < this.elements.length; i++) {
             this.el.appendChild(this.elements[i]);
+        } 
+        if (data.attributes)
+            this.addAttributes(data.attributes);
+       
+    }
+    addAttributes(attributesData) {
+        for (var i = 0; i < attributesData.length; i++) {
+            this.el.setAttribute(attributesData[i].name, attributesData[i].value);
+            this.attributes.push(attributesData[i]);
         }
     }
     createGround(groundData) {

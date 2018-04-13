@@ -2,19 +2,13 @@ export class Player {
     constructor(pos) {
         this.position = pos;
         this.el = this.createBody();
-        this.isMoveEnabled = false;
-        this.isContinousMoving = false;
         this.moving = false;
         this.end = false;
         var _this = this;
-        this.el.addEventListener('menuclicked', function () {
-            _this.isMoveEnabled = true;
-        });
     }
     createBody() {
         var playerEntity = document.createElement('a-entity');
         playerEntity.setAttribute('id', "playerEntity");
-        playerEntity.setAttribute('player', '');
         playerEntity.setAttribute('position', this.position);
         playerEntity.setAttribute('dynamic-body', 'mass: 15; shape: box');
         var sphere = document.createElement('a-sphere');
@@ -31,12 +25,12 @@ export class Player {
         return playerEntity;
     }
     move(td) {
-         this.position =  this.el.body.position;
+         this.position =  this.el.object3D.position;
         if (this.moving) {
             var currPos = this.el.object3D.position;
             var lookAtVector = this.getLookAtVector();
             var distance = lookAtVector.length();
-            var factor = 1 / distance;
+            var factor = 1.5 / distance;
             ['x', 'y', 'z'].forEach(function (axis) {
                 lookAtVector[axis] *= factor * (td / 1000);
             });
