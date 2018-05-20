@@ -13,12 +13,12 @@
         "assets": [
             {
                 "type": "img",
-                "src": "../Images/hole.jpg",
+                "src": "../Images/lava.jpg",
                 "id": "levelOneLavaTexture"
             },
             {
                 "type": "img",
-                "src": "../Images/universe.jpg",
+                "src": "../Images/sky.jpg",
                 "id": "levelOneSkyTexture"
             },
             {
@@ -46,19 +46,19 @@
             "src": "#levelOneLavaTexture",
             "color": "green",
             "id": "levelOneGround",
-            "height":30,
-            "width": 30,
+            "height": 50,
+            "width": 50,
             "position": "0 -1 0"
         },
         "sky": {
             "src": "#levelOneSkyTexture",
             "id": "levelOneSky",
-            "radius": 10
+            "radius": 25
         },
         "paleData": {
-            "width": 3,
+            "width": 5,
             "height": 0.5,
-            "depth": 3,
+            "depth": 5,
             "colors": [
                 "#1a1e41",
                 "#2ed73a",
@@ -70,23 +70,39 @@
         "pales": [
             {
                 "src": "#levelOneStartTexture",
-                "position": "0 2 2"
+                "position": "0 2 15"
             },
             {
-                "position": "0 2 -1",
+                "position": "0 2 10",
+                "velocity": "-3"
+            },
+            {
+                "position": "0 2 5",
+                "velocity": "4"
+            },
+            {
+                "position": "0 2 0",
                 "velocity": "-1"
             },
             {
+                "position": "0 2 -5",
+                "velocity": "1"
+            },
+            {
+                "position": "0 2 -10",
+                "velocity": "-2"
+            },
+            {
                 "src": "#levelOneFinishTexture",
-                "position": "0 2 -4",
+                "position": "0 2 -15",
                 "flags" :    [
-                     "-1.3 4 -2.8", "1.3 4 -2.8", "0 5.2 -2.8"
+                     "-2 4 -13", "2 4 -13", "0 5.2 -13"
                 ]
             }
         ],
         "player": {
-            "position": "0 2.5 2",
-            "targetZ" : -2.8
+            "position": "0 2.5 15",
+            "targetZ" : -13
         }
     }
 }

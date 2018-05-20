@@ -7,6 +7,7 @@ export class Scene {
         this.el.scene = this;
         this.elements = [];
         this.attributes = [];
+        this.pales = [];
         this.player = {};
         if (data.assets)
             this.addAssets(data.assets);
@@ -49,21 +50,14 @@ export class Scene {
         sky.setAttribute("id", skyData.id);
         return sky;
     }
-    removeElements() {
-        for (var i = 0; i < this.elements.length; i++) {
-            this.el.removeChild(this.elements[i]);
-        }
-    }
-    removeAttributes() {
-        for (var i = 0; i < this.attributes.length; i++) {
-            this.el.removeAttribute(this.attributes[i].name);
-        }
-    }
     createMenuItem(menuItemData) {
         var menuItem = document.createElement('a-entity');
-        menuItem.setAttribute('rotation', "0 20 0"),
-            menuItem.setAttribute('id', menuItemData.id),
-            menuItem.setAttribute('menu-panel', 'text:' + menuItemData.text + ";maskWidth: 4; blackPlaneHeight: 1.5");
+        if (menuItemData.rotation) {
+            menuItem.setAttribute('rotation', menuItemData.rotation);
+        } else
+            menuItem.setAttribute('rotation', "0 20 0");
+        menuItem.setAttribute('id', menuItemData.id);
+        menuItem.setAttribute('menu-panel', 'text:' + menuItemData.text + ";maskWidth: 4; blackPlaneHeight: 1.5");
         menuItem.setAttribute('position', menuItemData.position);
         return menuItem;
     }
@@ -96,21 +90,51 @@ export class Scene {
         for (var i = 0; i < pales.length; i++) {
             var currentPaleData = pales[i];
             var pale = new Pale(paleData.height, paleData.width, paleData.depth, currentPaleData.src, currentPaleData.position, currentPaleData.velocity, paleData.colors[i % 5]);
+            if (currentPaleData.flags) {
+                var cylinder1 = document.createElement('a-cylinder');
+                cylinder1.setAttribute('height', 4);
+                cylinder1.setAttribute('radius', 0.05);
+                cylinder1.setAttribute('color', 'red');
+                cylinder1.setAttribute('position', currentPaleData.flags[0]);
+                //pale.el.appendChild(cylinder1);
+                this.el.appendChild(cylinder1);
+                var cylinder2 = document.createElement('a-cylinder');
+                cylinder2.setAttribute('height', 4);
+                cylinder2.setAttribute('radius', 0.05);
+                cylinder2.setAttribute('color', 'red');
+                cylinder2.setAttribute('position', currentPaleData.flags[1]);
+                //pale.el.appendChild(cylinder2);
+                this.el.appendChild(cylinder2);
+                var flag = document.createElement('a-plane');
+                flag.setAttribute('height', 1);
+                flag.setAttribute('width', 4);
+                flag.setAttribute('src', currentPaleData.src);
+               
+                flag.setAttribute('position', currentPaleData.flags[2]);
+                flag.setAttribute('rotation', '0 0 0');
+                this.el.appendChild(flag);
+            }
             this.el.appendChild(pale.el);
             this.elements.push(pale.el);
+            this.pales.push(pale);
         }
     }
     addPlayer(playerData) {
         var player = new Player(playerData.position);
         var ground = this.ground;
+        var lastPale = this.pales[this.pales.length - 1];
         this.el.appendChild(player.el);
         this.elements.push(player.el)
         this.player = player;
-        var _self  = this;
+        var _self = this;
+        this.targetZ = playerData.targetZ;
         player.el.addEventListener('collide', function (e) {
             if (e.detail.body.id == ground.body.id) {
-                player.el.removeEventListener('collide',{});
-                player.el.emit(consts.events.gameover,{});
+                player.el.removeEventListener('collide', {});
+                player.el.emit(consts.events.gameover, {});
+            }
+            if (e.detail.body.id == lastPale.el.body.id) {
+                _self.lastPaleHit = true;
             }
         });
     }

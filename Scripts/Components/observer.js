@@ -1,6 +1,6 @@
 var MoveControl = require("../Models/move-control-panel");
 var SceneNS = require("../Models/scene");
-
+var consts = require('../constants');
 module.exports = AFRAME.registerComponent('observer', {
     init: function () {
         var scene = this.el.scene;
@@ -20,6 +20,9 @@ module.exports = AFRAME.registerComponent('observer', {
             if (this.moveControl) {
                 this.moveControl.move(td);
                 this.moveControl.switchVisibility(lookAt);
+            }
+            if(this.scene.lastPaleHit && this.player.el.object3D.position.z <= this.scene.targetZ){
+                this.player.el.emit(consts.events.wingame, {});
             }
             this.player.move(td);
         } else {

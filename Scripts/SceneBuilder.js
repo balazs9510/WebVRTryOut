@@ -5,11 +5,6 @@ export class SceneBuilder {
         this.scene = new Scene(scene);
         this.data = scene;
     }
-    cleanScene(prevScene) {
-         prevScene.removeAttributes();
-        prevScene.removeElements();
-       
-    }
     build() {
         var menu_items = this.data.menu_items;
         var cameraData = this.data.camera;

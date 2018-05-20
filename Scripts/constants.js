@@ -1,6 +1,7 @@
 module.exports = {
     events:{
         gameover: "gameover",
-        menuclicked: "menuclicked"
+        menuclicked: "menuclicked",
+        wingame: "wingame"
     }
 }

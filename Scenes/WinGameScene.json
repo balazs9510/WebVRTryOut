@@ -1,12 +1,19 @@
 {
     "scene": {
+        "assets": [
+            {
+                "type": "img",
+                "src": "../Images/grid.jpg",
+                "id": "winGameGroundTexture"
+            }
+        ],
         "ground": {
             "width": 20,
             "height": 20,
-            "color": "black"
+            "src": "#winGameGroundTexture"
         },
         "sky": {
-            "color": "black",
+            "color": "#000080",
             "radius": 10
         },
         "items": [
@@ -15,11 +22,11 @@
                 "attributes": [
                     {
                         "name": "value",
-                        "value": "YOU DIED"
+                        "value": "Congratulations!"
                     },
                     {
                         "name": "color",
-                        "value": "red"
+                        "value": "white"
                     },
                     {
                         "name": "align",
@@ -54,8 +61,8 @@
             {
                 "text": "Back to menu",
                 "id": "",
-                "position": "1 2 6",
-                "rotation": "0 -180 0"
+                "position": "1 1 -4",
+                "rotation": "-60 0 0"
             }
         ]
     }
